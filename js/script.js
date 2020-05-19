@@ -12,8 +12,10 @@ let addItem = () => {
 
 let showList =(list)=>{
     let message = list.map((item, index) => {
-    if (checkSameNumber(item.contents)){
-            return null
+    if (item.contents == 0){
+            itemList.splice(index,1)
+            alert ("You must enter something!")
+            return null 
         }
     if (item.isDone){
       return `<li>
@@ -32,7 +34,7 @@ let showList =(list)=>{
      }
     }
     ).join('')
-
+    console.log(message)
     document.getElementById("to-do-list").innerHTML = message
 }
 
@@ -43,7 +45,6 @@ function remove(index){
 
 function toggleDone(index){
     itemList[index].isDone= !itemList[index].isDone
-    // doneNotDone(index)
     showList(itemList)
 }
 
@@ -62,3 +63,9 @@ function checkSameNumber(x){
        return false;
     }
    }
+
+function toggleDoneList(itemList){
+    doneList = itemList.filter(item => itemList.IsDone === true)
+    console.log(doneList)
+
+}   
