@@ -11,12 +11,31 @@ let addItem = () => {
 }
 
 let showList =(list)=>{
-    let message = list.map((item, index) => `<li>${item.contents}
-    <a href="#" onclick='remove(${index})'>x</a> 
-    <input type ="checkbox" onchange ="toggleDone(${index})">
-    <span id="Done-not-Done"></span>
-
-    </li>`).join('')
+    let message = list.map((item, index) => {
+    if (item.isDone){
+      return `<li>
+        ${item.contents}
+        <a href="#" onclick='remove(${index})'>x</a> 
+        <input type ="checkbox" checked=true onchange ="toggleDone(${index})">
+        <span id="Done-not-Done">Done</span>
+        </li>`.strike()
+    }
+     else {return `<li>
+        ${item.contents}
+        <a href="#" onclick='remove(${index})'>x</a> 
+        <input type ="checkbox" onchange ="toggleDone(${index})">
+        <span id="Done-not-Done">Not Done</span>
+        </li>`
+     }
+        
+    // `<li>
+    // ${item.contents}
+    // <a href="#" onclick='remove(${index})'>x</a> 
+    // <input type ="checkbox" onchange ="toggleDone(${index})">
+    // <span id="Done-not-Done">Not Done</span>
+    // </li>`
+    }
+    ).join('')
     document.getElementById("to-do-list").innerHTML = message
 }
 
@@ -26,18 +45,19 @@ function remove(index){
  }
 
 function toggleDone(index){
-    itemList[index].isDone=true
-    doneNotDone(index)
+    itemList[index].isDone= !itemList[index].isDone
+    // doneNotDone(index)
+    showList(itemList)
 }
 
-document.getElementById("Done-not-Done").innerHTML = func
+// document.getElementById("Done-not-Done").innerHTML = func
 
-function doneNotDone(index){
- if (itemList[index].isDone=true){
-    document.getElementById("Done-not-Done").innerHTML = `Done!`
- }
-  else 
-    {document.getElementById("Done-not-Done").innerHTML = `Not Done!`}
- }
+// function doneNotDone(index){
+//  if (itemList[index].isDone=true){
+//     document.getElementById("Done-not-Done").innerHTML = `Done!`
+//  }
+//   else 
+//     {document.getElementById("Done-not-Done").innerHTML = `Not Done!`}
+//  }
 
 
