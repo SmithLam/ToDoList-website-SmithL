@@ -12,30 +12,27 @@ let addItem = () => {
 
 let showList =(list)=>{
     let message = list.map((item, index) => {
+    if (checkSameNumber(item.contents)){
+            return null
+        }
     if (item.isDone){
       return `<li>
-        ${item.contents}
-        <a href="#" onclick='remove(${index})'>x</a> 
+        <span>${item.contents}</span>
         <input type ="checkbox" checked=true onchange ="toggleDone(${index})">
         <span id="Done-not-Done">Done</span>
+        <a href="#" onclick='remove(${index})'><i class="far fa-window-close" style="color:red"></i></a> 
         </li>`.strike()
     }
      else {return `<li>
-        ${item.contents}
-        <a href="#" onclick='remove(${index})'>x</a> 
+        <span>${item.contents}</span>
         <input type ="checkbox" onchange ="toggleDone(${index})">
         <span id="Done-not-Done">Not Done</span>
+        <a href="#" onclick='remove(${index})'><i class="far fa-window-close" style="color:red"></i></a> 
         </li>`
      }
-        
-    // `<li>
-    // ${item.contents}
-    // <a href="#" onclick='remove(${index})'>x</a> 
-    // <input type ="checkbox" onchange ="toggleDone(${index})">
-    // <span id="Done-not-Done">Not Done</span>
-    // </li>`
     }
     ).join('')
+
     document.getElementById("to-do-list").innerHTML = message
 }
 
@@ -50,14 +47,18 @@ function toggleDone(index){
     showList(itemList)
 }
 
-// document.getElementById("Done-not-Done").innerHTML = func
-
-// function doneNotDone(index){
-//  if (itemList[index].isDone=true){
-//     document.getElementById("Done-not-Done").innerHTML = `Done!`
-//  }
-//   else 
-//     {document.getElementById("Done-not-Done").innerHTML = `Not Done!`}
-//  }
-
-
+function checkSameNumber(x){
+    if (itemList.length >=0 && +x==0){
+        alert("You must enter something!")
+        document.getElementById("to-do-input").value=null
+       return true
+    }
+    else if (itemList.length >=0 && +x == itemList[itemList.length-1]){
+       alert("You must not enter the same thing again!")
+       document.getElementById("to-do-input").value=null
+      return true
+    }
+    else {
+       return false;
+    }
+   }
