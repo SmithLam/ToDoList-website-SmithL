@@ -34,8 +34,8 @@ let showList =(list)=>{
      }
     }
     ).join('')
-    console.log(message)
-    document.getElementById("to-do-list").innerHTML = message
+    document.getElementById("to-do-list").innerHTML = message 
+   
 }
 
 function remove(index){
@@ -63,9 +63,10 @@ function checkSameNumber(x){
        return false;
     }
    }
+  
+function showDoneList(){
+    doneList = itemList.filter(item => {return item.isDone})
+    console.log("Your done list is ", doneList)
+    showList(doneList)
+}
 
-function toggleDoneList(itemList){
-    doneList = itemList.filter(item => itemList.IsDone === true)
-    console.log(doneList)
-
-}   
