@@ -1,4 +1,6 @@
 let itemList = []
+let previousList = []
+
 
 let addItem = () => {
     let toDo ={
@@ -8,6 +10,7 @@ let addItem = () => {
     itemList.push(toDo)
     showList(itemList)
     document.getElementById("to-do-input").value = null
+    save()
 }
 
 let showList =(list)=>{
@@ -41,11 +44,13 @@ let showList =(list)=>{
 function remove(index){
  itemList.splice(index,1)
  showList(itemList)
+ save()
  }
 
 function toggleDone(index){
     itemList[index].isDone= !itemList[index].isDone
     showList(itemList)
+    save()
 }
 
 function checkSameNumber(x){
@@ -62,11 +67,34 @@ function checkSameNumber(x){
     else {
        return false;
     }
+    save()
    }
   
 function showDoneList(){
-    doneList = itemList.filter(item => {return item.isDone})
-    console.log("Your done list is ", doneList)
-    showList(doneList)
+    if (document.getElementById("done-List").checked === true){
+        doneList = itemList.filter(item => {return item.isDone})
+        showList(doneList)
+    }
+    else{
+        showList(itemList)
+    }
 }
 
+let save = () => {
+    localStorage.setItem("todo", JSON.stringify(itemList))
+}
+
+let loadData = () =>{
+    previousList = JSON.parse(localStorage.getItem("todo"))
+    if (previousList.length >0){
+        itemList = previousList
+    }
+    else {
+        itemList =[]
+    }
+}
+
+loadData()
+
+//to delete the local storage
+// localStorage.removeItem("todo") 
